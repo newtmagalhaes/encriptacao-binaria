@@ -10,5 +10,6 @@ int main()
     // Arvore:
     // @param char[] char
     // @returns char[] encriptedChar
+    
     return 0;
 }
