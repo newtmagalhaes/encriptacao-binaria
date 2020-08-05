@@ -9,13 +9,13 @@ char *operation(char senha[], char chave[])
     int keySize = tamStr(chave);
 
     char newKey[100];
-    // Adiciona a chave à nova chave
-    strcpy(newKey, chave);
 
     printf("Tamanho da Senha: %d", passSize);
 
     if (keySize < passSize)
     {
+        // Adiciona a chave à nova chave
+        strcpy(newKey, chave);
 
         int diff = passSize - keySize;
         int rounds = diff / keySize;
@@ -37,7 +37,13 @@ char *operation(char senha[], char chave[])
         printf("\nChave: %s", chave);
         printf("\nNova Chave: %s, Tamanho: %d", newKey, tamStr(newKey));
     }
-
+    else if (keySize > passSize)
+    {
+        for (int i = 0; i < passSize; i++)
+        {
+            newKey[i] = chave[i];
+        }
+    }
     return senha;
 }
 
