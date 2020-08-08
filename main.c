@@ -5,17 +5,20 @@
 
 int main()
 {
+    char senha[100] = "abra";
+    char chave[100] = "baui";
+    char a[100];
+
     // CLI:
     // @returns char[] Senha, char[] Chave
-
-    // Operação Bitwise:
-    // @param char[] Senha, char[] Chave
-    // @returns char[] bitwiseChar
-    char senha[100] = "12345678901234567890123456";
-    char chave[100] = "123456";
-    char a[100];
+    
     strcpy(a, operation(senha, chave));
-    printf("\n\nRetorno da função: %s\n", a);
+    printf("\n\nRetorno da função: ");
+    for (int i = 0; i < returnSize(); i++)
+    {
+        printf("%d", a[i]);
+    }
+    printf("\n");
 
     // Arvore:
     // @param char[] char
