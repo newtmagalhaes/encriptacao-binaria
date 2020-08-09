@@ -49,7 +49,7 @@ Tree ** getNextNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
 }
 
 // Verifica se dado um array de (Tree *) há pelo menos 1 ponteiro diferente de NULL
-int isNextNodeArrNotNull(Tree *nodeArr[], unsigned nodeArrLength)
+int isCurrNodeArrNotNull(Tree *nodeArr[], unsigned nodeArrLength)
 {
     for (int i = 0; i < nodeArrLength; i++)
     {
@@ -67,7 +67,7 @@ void printNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
     {
         if (nodeArr[i] == NULL)
         {
-            printf("\tnil");
+            printf("\t#");
         }
         else
         {
