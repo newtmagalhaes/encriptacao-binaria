@@ -29,6 +29,23 @@ Tree * createNode()
     return newNode;
 }
 
+// Verifica se dado um array de (Tree *) há pelo menos 1 ponteiro diferente de NULL
+int isNextNodeArrNotNull(Tree *nodeArr[], unsigned nodeArrLength)
+{
+    for (int i = 0; i < nodeArrLength; i++)
+    {
+        if (nodeArr[i] != NULL)
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+void printTree()
+{
+}
+
 void binaryInsert(Tree *root, char insertData)
 {
     if (root->data == '\0')
@@ -57,9 +74,5 @@ void binaryInsert(Tree *root, char insertData)
 }
 
 char removeNode()
-{
-}
-
-void printTree()
 {
 }
