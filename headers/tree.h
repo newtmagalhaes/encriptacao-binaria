@@ -1,107 +1,65 @@
+#pragma once
+
+/**
+ *    Implementando estrutura de dados de Árvore
+ * onde cada nó armazena um caractere (char)
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
-struct item
+typedef struct node
 {
-    int cod;
-};
-typedef struct item Item;
+    struct node *leftNode, *rightNode;
+    char data;
+} Tree;
 
-struct node
+Tree * createNode()
 {
-    Item item;
-    struct node *leftNode;
-    struct node *rigthNode;
-};
-typedef struct node Node;
-
-Node *treeInitialize()
-{
-    return NULL;
-}
-
-Item itemCreate(int cod)
-{
-    Item item;
-    item.cod = cod;
-    return item;
-}
-
-Node *treeInsert(Node *root, Item x)
-{
-    if (root == NULL)
+    Tree *newNode = NULL;
+    do
     {
-        Node *aux = (Node *)malloc(sizeof(Node));
-        aux->item = x;
-        aux->leftNode = NULL;
-        aux->rigthNode = NULL;
-        return aux;
+        newNode = (Tree *)malloc(sizeof(Tree));
+    } while (newNode == NULL);
+
+    newNode->leftNode = NULL;
+    newNode->rightNode = NULL;
+    newNode->data = '\0';
+
+    return newNode;
+}
+
+void binaryInsert(Tree *root, char insertData)
+{
+    if (root->data == '\0')
+    {
+        root->data = insertData;
     }
     else
     {
-        if (x.cod > root->item.cod)
+        if (insertData <= root->data)
         {
-            root->rigthNode = treeInsert(root->rigthNode, x);
+            if (root->leftNode == NULL)
+            {
+                root->leftNode = createNode();
+            }
+            binaryInsert(root->leftNode, insertData);
         }
         else
         {
-            root->leftNode = treeInsert(root->leftNode, x);
+            if (root->rightNode == NULL)
+            {
+                root->rightNode = createNode();
+            }
+            binaryInsert(root->rightNode, insertData);
         }
     }
-    return root;
 }
 
-void treeFree(Node *root)
+char removeNode()
 {
-    if (root != NULL)
-    {
-
-        treeFree(root->leftNode);
-        treeFree(root->rigthNode);
-        free(root);
-    }
 }
 
-void treePrint(Node *root)
+void printTree()
 {
-    if (root != NULL)
-    {
-        printf("%d ", root->item.cod);
-        treePrint(root->leftNode);
-        treePrint(root->rigthNode);
-    }
-}
-
-Node *treeSearch(Node *root, int cod)
-{
-
-    if (root != NULL)
-    {
-        if (root->item.cod == cod)
-            return root;
-        else if (cod > root->item.cod)
-            return treeSearch(root->rigthNode, cod);
-        else
-            return treeSearch(root->leftNode, cod);
-    }
-    return NULL;
-}
-
-int main()
-{
-    Node *root = treeInitialize();
-    root = treeInsert(root, itemCreate(12));
-    root = treeInsert(root, itemCreate(15));
-    root = treeInsert(root, itemCreate(10));
-    root = treeInsert(root, itemCreate(9));
-    root = treeInsert(root, itemCreate(5));
-    root = treeInsert(root, itemCreate(20));
-    treePrint(root);
-    printf("\n");
-
-    treePrint(treeSearch(root, 15));
-
-    treeFree(root);
-
-    return 0;
 }
