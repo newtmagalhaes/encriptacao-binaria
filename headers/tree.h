@@ -42,6 +42,22 @@ int isNextNodeArrNotNull(Tree *nodeArr[], unsigned nodeArrLength)
     return 0;
 }
 
+void printNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
+{
+    for (int i = 0; i < nodeArrLength; i++)
+    {
+        if (nodeArr[i] == NULL)
+        {
+            printf("\tnil");
+        }
+        else
+        {
+            printf("\t%c", nodeArr[i]->data);
+        }
+    }
+    printf("\n");
+}
+
 void printTree()
 {
 }
