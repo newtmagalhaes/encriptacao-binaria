@@ -29,6 +29,25 @@ Tree * createNode()
     return newNode;
 }
 
+Tree ** getNextNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
+{
+    Tree **nextNodeArr = (Tree **)realloc(NULL, 2 * nodeArrLength * sizeof(Tree));
+
+    for (int i = 0; i < 2*nodeArrLength; i++)
+    {
+        if (i % 2 == 0)
+        {
+            nextNodeArr[i] = nodeArr[i/2]->leftNode;
+        }
+        else
+        {
+            nextNodeArr[i] = nodeArr[i/2]->rightNode;
+        }
+    }
+
+    return nextNodeArr;
+}
+
 // Verifica se dado um array de (Tree *) há pelo menos 1 ponteiro diferente de NULL
 int isNextNodeArrNotNull(Tree *nodeArr[], unsigned nodeArrLength)
 {
