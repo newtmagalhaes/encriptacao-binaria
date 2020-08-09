@@ -37,11 +37,11 @@ Tree ** getNextNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
     {
         if (i % 2 == 0)
         {
-            nextNodeArr[i] = nodeArr[i/2]->leftNode;
+            nextNodeArr[i] = nodeArr[i/2] != NULL ? nodeArr[i/2]->leftNode : NULL;
         }
         else
         {
-            nextNodeArr[i] = nodeArr[i/2]->rightNode;
+            nextNodeArr[i] = nodeArr[i/2] != NULL ? nodeArr[i/2]->rightNode : NULL;
         }
     }
 
@@ -77,8 +77,32 @@ void printNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
     printf("\n");
 }
 
-void printTree()
+void printTree(Tree *root)
 {
+    if (root == NULL)
+    {
+        printf("There's no Tree to print!");
+    }
+    else
+    {
+        unsigned currLength = 1, nextLength = 2;
+        Tree **currNodeArr = (Tree **)realloc(NULL, currLength * sizeof(Tree));
+        currNodeArr[0] = root;
+
+        Tree **nextNodeArr = getNextNodeArr(currNodeArr, currLength);
+
+        printf("Tree start!\n");
+        do
+        {
+            printNodeArr(currNodeArr, currLength);
+
+            currLength = nextLength;
+            nextLength *= 2;
+            currNodeArr = nextNodeArr;
+            nextNodeArr = getNextNodeArr(currNodeArr, currLength);
+        } while (isCurrNodeArrNotNull(currNodeArr, currLength));
+        printf("Tree end!\n");
+    }
 }
 
 void binaryInsert(Tree *root, char insertData)
