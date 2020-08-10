@@ -1,12 +1,13 @@
 #pragma once
 
 /**
- *    Implementando echarArrutura de dados de Árvore
+ *    Implementando estrutura de dados de Árvore
  * onde cada nó armazena um caractere (char)
 */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct node
 {
@@ -94,8 +95,8 @@ void printTree(Tree *root)
     }
     else
     {
-        unsigned currLength = 1, nextLength = 2;
-        Tree **currNodeArr = (Tree **)realloc(NULL, currLength * sizeof(Tree)) ;
+        unsigned currLength = 1;
+        Tree **currNodeArr = (Tree **)realloc(NULL, currLength * sizeof(Tree *));
         currNodeArr[0] = root;
 
         Tree **nextNodeArr = getNextNodeArr(currNodeArr, currLength);
@@ -106,8 +107,7 @@ void printTree(Tree *root)
             printNodeArr(currNodeArr, currLength);
             freeNodeArr(currNodeArr, currLength);
 
-            currLength = nextLength;
-            nextLength *= 2;
+            currLength *= 2;
 
             currNodeArr = nextNodeArr;
             nextNodeArr = getNextNodeArr(currNodeArr, currLength);
@@ -143,14 +143,11 @@ void binaryInsert(Tree *root, char insertData)
     }
 }
 
-void removeNode()
-{
-}
-
 char *getCharArrFromNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
 {
-    unsigned charArrLength = (nodeArrLength * sizeof(char)) + 1;
+    unsigned charArrLength = (nodeArrLength + 1) * sizeof(char);
     char *charArr = NULL;
+
     do
     {
         charArr = (char *)malloc(charArrLength);
@@ -158,9 +155,48 @@ char *getCharArrFromNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
 
     for (int i = 0; i < nodeArrLength; i++)
     {
-        charArr[i] = nodeArr[i]->data;
+        charArr[i] = nodeArr[i] != NULL? nodeArr[i]->data : '#';
     }
     charArr[nodeArrLength] = '\0';
 
     return charArr;
+}
+
+char *getTreeInStr(Tree *root)
+{
+    if (root == NULL)
+    {
+        printf("There's no Tree to get str!");
+        return NULL;
+    }
+    else
+    {
+        unsigned newStrLength = 1, currLength = 1;
+        char *str = (char *)calloc(1, sizeof(char)),
+            *currCharArr = (char *)calloc(1, sizeof(char));
+
+
+        Tree **currNodeArr = (Tree **)realloc(NULL, currLength * sizeof(Tree));
+        currNodeArr[0] = root;
+
+        Tree **nextNodeArr = getNextNodeArr(currNodeArr, currLength);
+
+        do
+        {
+            currCharArr = getCharArrFromNodeArr(currNodeArr, currLength);
+
+            newStrLength += currLength;
+            str = (char *)realloc(str, newStrLength);
+            strcat(str, currCharArr);
+
+            free(currCharArr);
+            freeNodeArr(currNodeArr, currLength);
+
+            currLength *= 2;
+            currNodeArr = nextNodeArr;
+            nextNodeArr = getNextNodeArr(currNodeArr, currLength);
+        } while (isCurrNodeArrNotNull(currNodeArr, currLength));
+
+        return str;
+    }
 }
