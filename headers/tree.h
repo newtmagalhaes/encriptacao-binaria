@@ -61,6 +61,15 @@ int isCurrNodeArrNotNull(Tree *nodeArr[], unsigned nodeArrLength)
     return 0;
 }
 
+void freeNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
+{
+    for (int i = 0; i < nodeArrLength; i++)
+    {
+        nodeArr[i] = NULL;
+    }
+    free(nodeArr);
+}
+
 void printNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
 {
     for (int i = 0; i < nodeArrLength; i++)
