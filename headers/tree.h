@@ -1,7 +1,7 @@
 #pragma once
 
 /**
- *    Implementando estrutura de dados de Árvore
+ *    Implementando echarArrutura de dados de Árvore
  * onde cada nó armazena um caractere (char)
 */
 
@@ -95,7 +95,7 @@ void printTree(Tree *root)
     else
     {
         unsigned currLength = 1, nextLength = 2;
-        Tree **currNodeArr = (Tree **)realloc(NULL, currLength * sizeof(Tree));
+        Tree **currNodeArr = (Tree **)realloc(NULL, currLength * sizeof(Tree)) ;
         currNodeArr[0] = root;
 
         Tree **nextNodeArr = getNextNodeArr(currNodeArr, currLength);
@@ -104,9 +104,11 @@ void printTree(Tree *root)
         do
         {
             printNodeArr(currNodeArr, currLength);
+            freeNodeArr(currNodeArr, currLength);
 
             currLength = nextLength;
             nextLength *= 2;
+
             currNodeArr = nextNodeArr;
             nextNodeArr = getNextNodeArr(currNodeArr, currLength);
         } while (isCurrNodeArrNotNull(currNodeArr, currLength));
@@ -141,6 +143,24 @@ void binaryInsert(Tree *root, char insertData)
     }
 }
 
-char removeNode()
+void removeNode()
 {
+}
+
+char *getCharArrFromNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
+{
+    unsigned charArrLength = (nodeArrLength * sizeof(char)) + 1;
+    char *charArr = NULL;
+    do
+    {
+        charArr = (char *)malloc(charArrLength);
+    } while (charArr == NULL);
+
+    for (int i = 0; i < nodeArrLength; i++)
+    {
+        charArr[i] = nodeArr[i]->data;
+    }
+    charArr[nodeArrLength] = '\0';
+
+    return charArr;
 }
