@@ -193,3 +193,17 @@ char *treeToStr(Tree *root)
         return str;
     }
 }
+
+Tree *strToTree(char *str)
+{
+    Tree *root = createNode();
+
+    int i = 0;
+
+    for (int i = 0; str[i] != '\0'; i++)
+    {
+        binaryInsert(root, str[i]);
+    }
+
+    return root;
+}
