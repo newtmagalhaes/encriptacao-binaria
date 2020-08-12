@@ -2,16 +2,31 @@
 #include <stdio.h>
 #include <string.h>
 
-char size[100];
+/// Tamanho base para todas as operações incluidas da chave.
+/// Tamanho da nova Senha.
+int baseSize;
 
-void xorOperation(char char1[], char char2[], char toArray[], int tam)
+/// Faz a operação bitwise XOR.
+/// @returns char* novaSenha
+char *xorOperation(char char1[], char char2[], int tam)
 {
+    char *arr = malloc(100 * sizeof(char));
+    // Faz a conta XOR dos dois valores
+    // e adiciona 32 para serem itens visíveis na tabela ASCII
     for (int i = 0; i < tam; i++)
     {
-        toArray[i] = (char)((char1[i] ^ char2[i]) + 32);
+        arr[i] = (char)((char1[i] ^ char2[i]));
+        if (arr[i] <= 32)
+        {
+            arr[i] += 32;
+        }
     }
+    return arr;
 }
 
+// Tamanho da String
+// @param char str[]
+// @returns int strSize
 int tamStr(char str[])
 {
     int size = 0;
@@ -32,8 +47,9 @@ char *operation(char senha[], char chave[])
 
     int keySize = tamStr(chave);
 
-    char newKey[100];
+    char newKey[passSize];
 
+    // Essas iterações a seguir forçam a newKey ser do tamanho da senha
     if (keySize < passSize)
     {
         // Adiciona a chave à nova chave
@@ -67,15 +83,11 @@ char *operation(char senha[], char chave[])
         strcpy(newKey, chave);
     }
 
-    char *newPass;
+    /// Nova chave com o valor da operação
+    char *newPass = xorOperation(newKey, senha, tamStr(newKey));
 
-    xorOperation(newKey, senha, newPass, tamStr(newKey));
+    // Adiciona o valor da nova senha à size, para se ter o tamanho em opções futuras.
+    baseSize = tamStr(newPass);
 
-    strcpy(size, newPass);
     return newPass;
-}
-
-int returnSize()
-{
-    return tamStr(size);
 }

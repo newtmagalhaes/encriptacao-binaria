@@ -8,18 +8,14 @@ int main()
 {
     char senha[100] = "1234";
     char chave[100] = "4321";
-    char xorPass[100];
+    char *xorPass;
 
     //cli(senha, chave);
     // Função que tranfere o valor alterado para o [xorPass]
-    strcpy(xorPass, operation(senha, chave));
+    xorPass = operation(senha, chave);
 
     /// Printa o Valor
-    printf("\n\nRetorno da função: ");
-    for (int i = 0; i < returnSize(); i++)
-    {
-        printf("%c - ", xorPass[i]);
-    }
+    printf("\n\nRetorno da função: %s\n", xorPass);
 
     // Arvore:
     // @param char[] char
