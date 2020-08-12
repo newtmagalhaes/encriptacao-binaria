@@ -1,5 +1,7 @@
 #pragma once
 
+#define TREE_NULL_CHAR '#'
+
 /**
  *    Implementando estrutura de dados de Árvore
  * onde cada nó armazena um caractere (char)
@@ -61,7 +63,7 @@ char *_getCharArrFromNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
 
     for (int i = 0; i < nodeArrLength; i++)
     {
-        charArr[i] = nodeArr[i] != NULL? nodeArr[i]->data : '#';
+        charArr[i] = nodeArr[i] != NULL? nodeArr[i]->data : TREE_NULL_CHAR;
     }
     charArr[nodeArrLength] = '\0';
 
@@ -94,7 +96,7 @@ void _printNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
 {
     for (int i = 0; i < nodeArrLength; i++)
     {
-        printf("\t%c", nodeArr[i] != NULL? nodeArr[i]->data : '#');
+        printf("\t%c", nodeArr[i] != NULL? nodeArr[i]->data : TREE_NULL_CHAR);
     }
     printf("\n");
 }
