@@ -4,16 +4,12 @@
 
 char size[100];
 
-void xorOperation(char char1[], char char2[], char *charArray[], int tam)
+void xorOperation(char char1[], char char2[], char toArray[], int tam)
 {
-    char array[100];
     for (int i = 0; i < tam; i++)
     {
-        char aux = (char)((char)(char1[i]) ^ (char)(char2[i]));
-        array[i] = aux;
+        toArray[i] = (char)((char1[i] ^ char2[i]) + 32);
     }
-
-    strcpy(charArray, array);
 }
 
 int tamStr(char str[])
@@ -27,7 +23,7 @@ int tamStr(char str[])
 }
 
 // Operação Bitwise:
-// @param char[] Senha 
+// @param char[] Senha
 // @param char[] Chave
 // @returns char[] bitwiseChar
 char *operation(char senha[], char chave[])
@@ -38,19 +34,14 @@ char *operation(char senha[], char chave[])
 
     char newKey[100];
 
-    printf("Tamanho da Senha: %d", passSize);
-
     if (keySize < passSize)
     {
-        printf("\nCriando nova chave...");
         // Adiciona a chave à nova chave
         strcpy(newKey, chave);
 
         int diff = passSize - keySize;
         int rounds = diff / keySize;
         int rest = diff % keySize;
-
-        printf("\nRounds: %d, Rest: %d", rounds, rest);
 
         for (int i = 0; i < rounds; i++)
         {
@@ -66,7 +57,6 @@ char *operation(char senha[], char chave[])
     }
     else if (keySize > passSize)
     {
-        printf("\nCriando nova chave...");
         for (int i = 0; i < passSize; i++)
         {
             newKey[i] = chave[i];
@@ -77,17 +67,12 @@ char *operation(char senha[], char chave[])
         strcpy(newKey, chave);
     }
 
-    printf("\nChave: %s", chave);
-    printf("\nNova Chave: %s, Tamanho: %d\n", newKey, tamStr(newKey));
-
-    char newPass[100];
+    char *newPass;
 
     xorOperation(newKey, senha, newPass, tamStr(newKey));
 
-    strcpy(senha, newPass);
     strcpy(size, newPass);
-
-    return senha;
+    return newPass;
 }
 
 int returnSize()
