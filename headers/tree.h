@@ -30,7 +30,7 @@ Tree * createNode()
     return newNode;
 }
 
-Tree ** getNextNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
+Tree ** _getNextNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
 {
     Tree **nextNodeArr = (Tree **)realloc(NULL, 2 * nodeArrLength * sizeof(Tree));
 
@@ -49,8 +49,27 @@ Tree ** getNextNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
     return nextNodeArr;
 }
 
+char *_getCharArrFromNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
+{
+    unsigned charArrLength = (nodeArrLength + 1) * sizeof(char);
+    char *charArr = NULL;
+
+    do
+    {
+        charArr = (char *)malloc(charArrLength);
+    } while (charArr == NULL);
+
+    for (int i = 0; i < nodeArrLength; i++)
+    {
+        charArr[i] = nodeArr[i] != NULL? nodeArr[i]->data : '#';
+    }
+    charArr[nodeArrLength] = '\0';
+
+    return charArr;
+}
+
 // Verifica se dado um array de (Tree *) há pelo menos 1 ponteiro diferente de NULL
-int isCurrNodeArrNotNull(Tree *nodeArr[], unsigned nodeArrLength)
+int _isCurrNodeArrNotNull(Tree *nodeArr[], unsigned nodeArrLength)
 {
     for (int i = 0; i < nodeArrLength; i++)
     {
@@ -62,7 +81,7 @@ int isCurrNodeArrNotNull(Tree *nodeArr[], unsigned nodeArrLength)
     return 0;
 }
 
-void freeNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
+void _freeNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
 {
     for (int i = 0; i < nodeArrLength; i++)
     {
@@ -71,18 +90,11 @@ void freeNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
     free(nodeArr);
 }
 
-void printNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
+void _printNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
 {
     for (int i = 0; i < nodeArrLength; i++)
     {
-        if (nodeArr[i] == NULL)
-        {
-            printf("\t#");
-        }
-        else
-        {
-            printf("\t%c", nodeArr[i]->data);
-        }
+        printf("\t%c", nodeArr[i] != NULL? nodeArr[i]->data : '#');
     }
     printf("\n");
 }
@@ -99,19 +111,19 @@ void printTree(Tree *root)
         Tree **currNodeArr = (Tree **)realloc(NULL, currLength * sizeof(Tree *));
         currNodeArr[0] = root;
 
-        Tree **nextNodeArr = getNextNodeArr(currNodeArr, currLength);
+        Tree **nextNodeArr = _getNextNodeArr(currNodeArr, currLength);
 
         printf("Tree start!\n");
         do
         {
-            printNodeArr(currNodeArr, currLength);
-            freeNodeArr(currNodeArr, currLength);
+            _printNodeArr(currNodeArr, currLength);
+            _freeNodeArr(currNodeArr, currLength);
 
             currLength *= 2;
 
             currNodeArr = nextNodeArr;
-            nextNodeArr = getNextNodeArr(currNodeArr, currLength);
-        } while (isCurrNodeArrNotNull(currNodeArr, currLength));
+            nextNodeArr = _getNextNodeArr(currNodeArr, currLength);
+        } while (_isCurrNodeArrNotNull(currNodeArr, currLength));
         printf("Tree end!\n");
     }
 }
@@ -143,26 +155,7 @@ void binaryInsert(Tree *root, char insertData)
     }
 }
 
-char *getCharArrFromNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
-{
-    unsigned charArrLength = (nodeArrLength + 1) * sizeof(char);
-    char *charArr = NULL;
-
-    do
-    {
-        charArr = (char *)malloc(charArrLength);
-    } while (charArr == NULL);
-
-    for (int i = 0; i < nodeArrLength; i++)
-    {
-        charArr[i] = nodeArr[i] != NULL? nodeArr[i]->data : '#';
-    }
-    charArr[nodeArrLength] = '\0';
-
-    return charArr;
-}
-
-char *getTreeInStr(Tree *root)
+char *treeToStr(Tree *root)
 {
     if (root == NULL)
     {
@@ -179,23 +172,23 @@ char *getTreeInStr(Tree *root)
         Tree **currNodeArr = (Tree **)realloc(NULL, currLength * sizeof(Tree));
         currNodeArr[0] = root;
 
-        Tree **nextNodeArr = getNextNodeArr(currNodeArr, currLength);
+        Tree **nextNodeArr = _getNextNodeArr(currNodeArr, currLength);
 
         do
         {
-            currCharArr = getCharArrFromNodeArr(currNodeArr, currLength);
+            currCharArr = _getCharArrFromNodeArr(currNodeArr, currLength);
 
             newStrLength += currLength;
             str = (char *)realloc(str, newStrLength);
             strcat(str, currCharArr);
 
             free(currCharArr);
-            freeNodeArr(currNodeArr, currLength);
+            _freeNodeArr(currNodeArr, currLength);
 
             currLength *= 2;
             currNodeArr = nextNodeArr;
-            nextNodeArr = getNextNodeArr(currNodeArr, currLength);
-        } while (isCurrNodeArrNotNull(currNodeArr, currLength));
+            nextNodeArr = _getNextNodeArr(currNodeArr, currLength);
+        } while (_isCurrNodeArrNotNull(currNodeArr, currLength));
 
         return str;
     }
