@@ -213,7 +213,7 @@ void binaryInsert(Tree *root, char insertData)
 }
 
 // retorna uma string com os caracteres da árvore
-char *treeToStr(Tree *root)
+char *treeToStr(Tree *root, int filterNULLchar)
 {
     if (root == NULL)
     {
@@ -248,7 +248,16 @@ char *treeToStr(Tree *root)
             nextNodeArr = _getNextNodeArr(currNodeArr, currLength);
         } while (_isNodeArrNotNull(currNodeArr, currLength));
 
-        return str;
+        if (filterNULLchar)
+        {
+            char *filteredStr = _filterStr(str, _TREE_NULL_CHAR);
+            free(str);
+            return filteredStr;
+        }
+        else
+        {
+            return str;
+        }
     }
 }
 
