@@ -6,11 +6,11 @@
 
 int main()
 {
-    char senha[100] = "1234";
-    char chave[100] = "4321";
+    char senha[100] = "0000";
+    char chave[100] = "1234";
     char *xorPass;
 
-    //cli(senha, chave);
+    // cli(senha, chave);
     // Função que tranfere o valor alterado para o [xorPass]
     xorPass = operation(senha, chave);
 

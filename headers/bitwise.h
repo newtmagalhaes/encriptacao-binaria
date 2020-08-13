@@ -20,6 +20,10 @@ char *xorOperation(char char1[], char char2[], int tam)
         {
             arr[i] += 32;
         }
+        if (arr[i] > 255)
+        {
+            arr[i] = arr[i] % 255 + 32;
+        }
     }
     return arr;
 }

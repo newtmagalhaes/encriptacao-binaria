@@ -12,11 +12,11 @@ void cli(char *senha, char *chave)
     printf("Por favor escreva os dados abaixo:\n");
 
     printf("Senha:");
-    scanf("%s", senha);
+    scanf("%100s", senha);
     fflush(stdin);
 
     printf("Chave:");
-    scanf("%s", chave);
+    scanf("%100s", chave);
     fflush(stdin);
     
 }
