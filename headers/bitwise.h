@@ -18,11 +18,11 @@ char *xorOperation(char char1[], char char2[], int tam)
         arr[i] = (char)((char1[i] ^ char2[i]));
         if (arr[i] <= 32)
         {
-            arr[i] += 32;
+            arr[i] += 33;
         }
-        if (arr[i] > 255)
+        if (arr[i] >= 255) // 255 == vazio
         {
-            arr[i] = arr[i] % 255 + 32;
+            arr[i] = (arr[i] % 255) + 33;
         }
     }
     return arr;

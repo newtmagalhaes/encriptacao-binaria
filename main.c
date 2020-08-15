@@ -6,11 +6,14 @@
 
 int main()
 {
-    char senha[100] = "0000";
-    char chave[100] = "1234";
+    char senha[100] = "123456";
+    char chave[100] = "EuamoComputação";
     char *xorPass;
 
-    // cli(senha, chave);
+    // Inicia o cliente de Terminal para pedir a senha e a chave 
+    // atualizando seus respectivos valores.
+    cli(senha, chave);
+
     // Função que tranfere o valor alterado para o [xorPass]
     xorPass = operation(senha, chave);
 

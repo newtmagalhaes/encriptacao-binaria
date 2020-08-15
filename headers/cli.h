@@ -18,5 +18,5 @@ void cli(char *senha, char *chave)
     printf("Chave:");
     scanf("%100s", chave);
     fflush(stdin);
-    
+
 }
