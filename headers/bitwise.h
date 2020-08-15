@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#define _PASSWORD_LIMIT 101
 
 /// Tamanho base para todas as operações incluidas da chave.
 /// Tamanho da nova Senha.
@@ -10,9 +11,9 @@ int baseSize;
 /// @returns char* novaSenha
 char *xorOperation(char char1[], char char2[], int tam)
 {
-    char *arr = malloc(100 * sizeof(char));
+    char *arr = (char *)malloc(_PASSWORD_LIMIT * sizeof(char));
     // Faz a conta XOR dos dois valores
-    // e adiciona 32 para serem itens visíveis na tabela ASCII
+    // e adiciona 33 para serem itens visíveis na tabela ASCII
     for (int i = 0; i < tam; i++)
     {
         arr[i] = (char)((char1[i] ^ char2[i]));
@@ -33,12 +34,7 @@ char *xorOperation(char char1[], char char2[], int tam)
 // @returns int strSize
 int tamStr(char str[])
 {
-    int size = 0;
-    while (str[size] != '\0')
-    {
-        size++;
-    }
-    return size;
+    return strlen(str);
 }
 
 // Operação Bitwise:

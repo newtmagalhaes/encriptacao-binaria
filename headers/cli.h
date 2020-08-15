@@ -10,13 +10,12 @@ void cli(char *senha, char *chave)
 
     printf("Encriptação de senhas usando Árvore Binária!\n");
     printf("Por favor escreva os dados abaixo:\n");
-
     printf("Senha:");
-    scanf("%100s", senha);
+    scanf("%101s", senha);
     fflush(stdin);
 
     printf("Chave:");
-    scanf("%100s", chave);
+    scanf("%101s", chave);
     fflush(stdin);
 
 }
