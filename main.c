@@ -6,8 +6,8 @@
 
 int main()
 {
-    char senha[_PASSWORD_LIMIT] = "aisgQDTPKZTFZpdnrSEYslNTZksoaUKACDJuicJtBEyCVDpMWuMqHZKI";
-    char chave[_PASSWORD_LIMIT] = "JCwMzHMdmVAUylpbqQenvTctpQkYqugbYFnXMcBaxBWXmozEEFUbAYVqoFqGzzKXExvQBYSbBoUUUU";
+    char senha[_PASSWORD_LIMIT] = "asNrSUUxmGwhrpCsczQRUqkwVNHghPGLG";
+    char chave[_PASSWORD_LIMIT] = "Chavedeteste";
     char *xorPass;
 
     // Inicia o cliente de Terminal para pedir a senha e a chave 

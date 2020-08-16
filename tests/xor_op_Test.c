@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../headers/bitwise.h"
+// Chave de teste para saveFile/LoadFile
 #define TEST_KEY "Chavedeteste"
-#define MAX_SAVED_VALUES 100
+// Valor máximo para testes em saveFile/LoadFile
+#define MAX_SAVED_VALUES 350
 
 // Struct para salvar os valores da senha + outputs
 struct PasswordOutput
@@ -22,7 +24,7 @@ void readOutputFiles();
 int main()
 {
     /// Testa se os valores vem de tamanhos iguais.
-    //printf("\nErrors: %d\n", xorOutputSizeTest());4
+    // printf("\nErrors: %d\n", xorOutputSizeTest());
 
     /// Salva os valores e tenta novamente com as mesmas
     /// senhas e mesma chave para ver se vem o mesmo valor
@@ -85,6 +87,7 @@ int xorOutputSizeTest()
 
             if (tamSenha != tamSaida)
             {
+                // Adiciona um erro caso o valor da saída seja menor que o valor da entrada.
                 retorno++;
             }
         }
@@ -102,13 +105,11 @@ void saveOutputFile()
 
     PassOutput outputsToSave[MAX_SAVED_VALUES];
 
-    char toSaveOutputs[100][101];
     int counter = 0;
 
     for (int i = 0; i < MAX_SAVED_VALUES; i++)
     {
         char senha[101];
-        char chave[] = TEST_KEY;
 
         char *saida;
 
@@ -123,13 +124,15 @@ void saveOutputFile()
 
         int tamSenha = strlen(senha);
 
-        if (tamSenha > 0)
+        if (tamSenha <= 0)
         {
-            saida = operation(senha, chave);
-            strcpy(outputsToSave[counter].password, senha);
-            strcpy(outputsToSave[counter].output, saida);
-            counter++;
+            senha[0] = 'a';
         }
+
+        saida = operation(senha, TEST_KEY);
+        strcpy(outputsToSave[counter].password, senha);
+        strcpy(outputsToSave[counter].output, saida);
+        counter++;
     }
 
     FILE *fileptr = fopen("savedOutputs.bin", "wb");
@@ -150,14 +153,18 @@ void readOutputFiles()
 
     for (int i = 0; i < MAX_SAVED_VALUES; i++)
     {
-        //printf("\nSenha %s\nOutput: %s\n", passOutput[i].password, passOutput[i].output);
+
         char *saida = operation(passOutput[i].password, TEST_KEY);
-        //printf("Saida2: %s\n", saida);
+
         for (int j = 0; j < strlen(saida); j++)
         {
             if (saida[j] != passOutput[i].output[j])
             {
-                printf("\nSaída2: %s\nOutput: %s\n", saida, passOutput[i].output);
+                printf("\nSenha: %s\nSaída2: %s\nOutput: %s\n",
+                       passOutput[i].password,
+                       saida,
+                       passOutput[i].output);
+
                 errors++;
                 break;
             }
