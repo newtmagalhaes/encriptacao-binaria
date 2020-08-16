@@ -47,7 +47,10 @@ char *operation(char senha[], char chave[])
 
     int keySize = tamStr(chave);
 
+    // Nova chave para se adequar à senha.
     char newKey[passSize];
+    // Nova senha encriptografada XOR
+    char *newPass;
 
     // Essas iterações a seguir forçam a newKey ser do tamanho da senha
     if (keySize < passSize)
@@ -83,8 +86,8 @@ char *operation(char senha[], char chave[])
         strcpy(newKey, chave);
     }
 
-    /// Nova chave com o valor da operação
-    char *newPass = xorOperation(newKey, senha, tamStr(newKey));
+    /// Nova senha com o valor da operação
+    newPass = xorOperation(newKey, senha, tamStr(senha));
 
     // Adiciona o valor da nova senha à size, para se ter o tamanho em opções futuras.
     baseSize = tamStr(newPass);
