@@ -2,23 +2,23 @@
 #include <stdlib.h>
 #include <string.h>
 #include "headers/bitwise.h"
+#include "headers/cli.h"
 
 int main()
 {
-    char senha[100] = "abra";
-    char chave[100] = "baui";
-    char a[100];
+    char senha[_PASSWORD_LIMIT] = "asNrSUUxmGwhrpCsczQRUqkwVNHghPGLG";
+    char chave[_PASSWORD_LIMIT] = "Chavedeteste";
+    char *xorPass;
 
-    // CLI:
-    // @returns char[] Senha, char[] Chave
-    
-    strcpy(a, operation(senha, chave));
-    printf("\n\nRetorno da função: ");
-    for (int i = 0; i < returnSize(); i++)
-    {
-        printf("%d", a[i]);
-    }
-    printf("\n");
+    // Inicia o cliente de Terminal para pedir a senha e a chave 
+    // atualizando seus respectivos valores.
+    cli(senha, chave);
+
+    // Função que tranfere o valor alterado para o [xorPass]
+    xorPass = operation(senha, chave);
+
+    /// Printa o Valor
+    printf("\n\nRetorno da função: %s\n", xorPass);
 
     // Arvore:
     // @param char[] char
