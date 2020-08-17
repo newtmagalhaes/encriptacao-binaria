@@ -17,7 +17,7 @@ typedef struct _node
     char data;
 } Tree;
 
-Tree * _createNode()
+Tree *_createNode()
 {
     Tree *newNode = NULL;
     do
@@ -33,19 +33,19 @@ Tree * _createNode()
 }
 
 // Dado um nodeArr retorna um ponteiro para um novo nodeArr com o dobro do tamanho da entrada
-Tree ** _getNextNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
+Tree **_getNextNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
 {
     Tree **nextNodeArr = (Tree **)realloc(NULL, 2 * nodeArrLength * sizeof(Tree));
 
-    for (int i = 0; i < 2*nodeArrLength; i++)
+    for (int i = 0; i < 2 * nodeArrLength; i++)
     {
         if (i % 2 == 0)
         {
-            nextNodeArr[i] = nodeArr[i/2] != NULL ? nodeArr[i/2]->leftNode : NULL;
+            nextNodeArr[i] = nodeArr[i / 2] != NULL ? nodeArr[i / 2]->leftNode : NULL;
         }
         else
         {
-            nextNodeArr[i] = nodeArr[i/2] != NULL ? nodeArr[i/2]->rightNode : NULL;
+            nextNodeArr[i] = nodeArr[i / 2] != NULL ? nodeArr[i / 2]->rightNode : NULL;
         }
     }
 
@@ -89,7 +89,7 @@ char *_getCharArrFromNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
 
     for (int i = 0; i < nodeArrLength; i++)
     {
-        charArr[i] = nodeArr[i] != NULL? nodeArr[i]->data : _TREE_NULL_CHAR;
+        charArr[i] = nodeArr[i] != NULL ? nodeArr[i]->data : _TREE_NULL_CHAR;
     }
     charArr[nodeArrLength] = '\0';
 
@@ -124,7 +124,7 @@ void _printNodeArr(Tree *nodeArr[], unsigned nodeArrLength)
 {
     for (int i = 0; i < nodeArrLength; i++)
     {
-        printf("\t%c", nodeArr[i] != NULL? nodeArr[i]->data : _TREE_NULL_CHAR);
+        printf("\t%c", nodeArr[i] != NULL ? nodeArr[i]->data : _TREE_NULL_CHAR);
     }
     printf("\n");
 }
@@ -224,8 +224,7 @@ char *treeToStr(Tree *root, int filterNULLchar)
     {
         unsigned newStrLength = 1, currLength = 1;
         char *str = (char *)calloc(1, sizeof(char)),
-            *currCharArr = (char *)calloc(1, sizeof(char));
-
+             *currCharArr = (char *)calloc(1, sizeof(char));
 
         Tree **currNodeArr = (Tree **)realloc(NULL, currLength * sizeof(Tree));
         currNodeArr[0] = root;
@@ -272,4 +271,15 @@ Tree *strToTree(char *str)
     }
 
     return root;
+}
+
+// Arvore:
+// @param char[] char
+// @returns char[] encriptedChar
+char *treeOperation(char *str)
+{
+    Tree *strNode = strToTree(str);
+    char *strFromTree = treeToStr(strNode, 1);
+    freeTree(strNode);
+    return strFromTree;
 }
