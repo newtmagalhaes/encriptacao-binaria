@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "limits": "cpp",
-        "cstdio": "cpp",
-        "*.tcc": "cpp"
-    }
-}
