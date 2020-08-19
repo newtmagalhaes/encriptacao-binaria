@@ -7,7 +7,7 @@
 // Chave de teste para saveFile/LoadFile
 #define TEST_KEY "Chavedeteste"
 // Valor máximo para testes em saveFile/LoadFile
-#define MAX_SAVED_VALUES 350
+#define MAX_SAVED_VALUES 100
 
 // Struct para salvar os valores da senha + outputs
 struct PasswordOutput
@@ -34,6 +34,7 @@ int main()
 // Salva os arquivos gerados aleatoriamente.
 void saveOutputFile()
 {
+    printf("\nComeçou:\n");
     srand(time(NULL));
 
     char alphabet[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -42,11 +43,12 @@ void saveOutputFile()
 
     int counter = 0;
 
+    char *saida;
+    char *saidaTree;
+
     for (int i = 0; i < MAX_SAVED_VALUES; i++)
     {
         char senha[101];
-
-        char *saida;
 
         int senhaValue = rand() % 100;
 
@@ -65,13 +67,22 @@ void saveOutputFile()
         }
 
         saida = operation(senha, TEST_KEY);
-        printf("Criou a chave");
-        char *saidaTree = treeOperation(saida);
-        printf("Criou a arvoe");
+
+        saidaTree = treeOperation(saida);
+
         strcpy(outputsToSave[counter].password, senha);
         strcpy(outputsToSave[counter].output, saidaTree);
+
+        printf("\nSenha: %s", outputsToSave[counter].password);
+        printf("\nRegular output: %s", saida);
+        printf("\nTree Output: %s", outputsToSave[counter].output);
+
+        free(saidaTree);
+        free(saida);
+
         counter++;
     }
+    printf("\nFinal\n");
 
     FILE *fileptr = fopen("savedOutputs.bin", "wb");
     fwrite(outputsToSave, sizeof(PassOutput), MAX_SAVED_VALUES, fileptr);
@@ -108,6 +119,9 @@ void readOutputFiles()
                 break;
             }
         }
+
+        free(saida);
+        free(saidaTree);
     }
     printf("Errors: %d", errors);
 }
