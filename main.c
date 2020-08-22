@@ -20,11 +20,11 @@ int main()
     xorPass = operation(senha, chave);
 
     /// Printa o Valor da operação XOR
-    printf("\n\nRetorno da função: %s\n", xorPass);
+    printf("\n\nRetorno do Bitwise: %s\n", xorPass);
 
     // A operação da árvore
     treePass = treeOperation(xorPass);
-    printf("\nSaída da árvore: %s\n", treePass);
+    printf("Retorno da árvore:  %s\n", treePass);
 
     return 0;
 }

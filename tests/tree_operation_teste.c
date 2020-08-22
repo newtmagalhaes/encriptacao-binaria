@@ -12,8 +12,8 @@
 // Struct para salvar os valores da senha + outputs
 struct PasswordOutput
 {
-    char password[_PASSWORD_LIMIT];
-    char output[_PASSWORD_LIMIT];
+    char *password;
+    char *output;
 };
 typedef struct PasswordOutput PassOutput;
 
@@ -27,7 +27,7 @@ int main()
     /// Salva os valores e tenta novamente com as mesmas
     /// senhas e mesma chave para ver se vem o mesmo valor
     saveOutputFile();
-    readOutputFiles();
+    //readOutputFiles();
     return 0;
 }
 
@@ -43,14 +43,14 @@ void saveOutputFile()
 
     int counter = 0;
 
-    char *saida;
-    char *saidaTree;
-
     for (int i = 0; i < MAX_SAVED_VALUES; i++)
     {
         char senha[101];
 
         int senhaValue = rand() % 100;
+
+        char *saida;
+        char *saidaTree;
 
         for (int j = 0; j < senhaValue; j++)
         {
@@ -77,9 +77,6 @@ void saveOutputFile()
         printf("\nRegular output: %s", saida);
         printf("\nTree Output: %s", outputsToSave[counter].output);
 
-        free(saidaTree);
-        free(saida);
-
         counter++;
     }
     printf("\nFinal\n");
@@ -87,6 +84,7 @@ void saveOutputFile()
     FILE *fileptr = fopen("savedOutputs.bin", "wb");
     fwrite(outputsToSave, sizeof(PassOutput), MAX_SAVED_VALUES, fileptr);
     fclose(fileptr);
+
 }
 
 // Carrega os arquivos salvos.
