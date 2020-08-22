@@ -29,23 +29,15 @@ char *xorOperation(char char1[], char char2[], int tam)
     return arr;
 }
 
-// Tamanho da String
-// @param char str[]
-// @returns int strSize
-int tamStr(char str[])
-{
-    return strlen(str);
-}
-
 // Operação Bitwise:
 // @param char[] Senha
 // @param char[] Chave
 // @returns char[] bitwiseChar
 char *operation(char senha[], char chave[])
 {
-    int passSize = tamStr(senha);
+    int passSize = strlen(senha);
 
-    int keySize = tamStr(chave);
+    int keySize = strlen(chave);
 
     // Nova chave para se adequar à senha.
     char newKey[passSize];
@@ -87,10 +79,10 @@ char *operation(char senha[], char chave[])
     }
 
     /// Nova senha com o valor da operação
-    newPass = xorOperation(newKey, senha, tamStr(senha));
+    newPass = xorOperation(newKey, senha, strlen(senha));
 
     // Adiciona o valor da nova senha à size, para se ter o tamanho em opções futuras.
-    baseSize = tamStr(newPass);
+    baseSize = strlen(newPass);
 
     return newPass;
 }
