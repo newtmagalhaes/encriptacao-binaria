@@ -15,7 +15,8 @@ int main()
     // Inicia o cliente de Terminal para pedir a senha e a chave
     // atualizando seus respectivos valores.
     cli(senha, chave);
-
+    // 98765464
+    // 123456
     // Função que tranfere o valor alterado para o [xorPass]
     xorPass = operation(senha, chave);
 

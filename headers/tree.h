@@ -1,10 +1,10 @@
 #pragma once
 
-#define _TREE_NULL_CHAR '#'
+#define _TREE_NULL_CHAR ' '
 
 /**
  *    Implementando estrutura de dados de Árvore
- * onde cada nó armazena um caractere (char)
+ *    onde cada nó armazena um caractere (char)
 */
 
 #include <stdio.h>
