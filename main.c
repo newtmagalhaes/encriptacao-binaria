@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "headers/bitwise.h"
-#include "headers/cli.h"
 #include "headers/tree.h"
 
 int main()
@@ -14,18 +13,28 @@ int main()
 
     // Inicia o cliente de Terminal para pedir a senha e a chave
     // atualizando seus respectivos valores.
-    cli(senha, chave);
-    // 98765464
-    // 123456
-    // Função que tranfere o valor alterado para o [xorPass]
-    xorPass = operation(senha, chave);
 
-    /// Printa o Valor da operação XOR
-    printf("\n\nRetorno do Bitwise: %s\n", xorPass);
+    printf("Encriptação de senhas usando Árvore Binária!\n");
+    printf("Favor escrever a chave para encriptação posterior:\n");
+    printf("Chave:");
+    scanf("%101s", chave);
+    fflush(stdin);
+    while (1)
+    {   
+        printf("\nEscreva a Senha:");
+        scanf("%101s", senha);
+        fflush(stdin);
 
-    // A operação da árvore
-    treePass = treeOperation(xorPass);
-    printf("Retorno da árvore:  %s\n", treePass);
+        // Função que tranfere o valor alterado para o [xorPass]
+        xorPass = operation(senha, chave);
+
+        /// Printa o Valor da operação XOR
+        // printf("\nRetorno do Bitwise: %s\n", xorPass);
+
+        // A operação da árvore
+        treePass = treeOperation(xorPass);
+        printf("Senha Criptografada:  %s\n", treePass);
+    }
 
     return 0;
 }
